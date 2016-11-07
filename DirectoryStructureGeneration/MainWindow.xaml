@@ -5,8 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectoryStructureGeneration"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="目录结构生成软件" Height="350" Width="525">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Name="Grid_StructurePath" Grid.Row="0" Margin="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="结构目录:" Grid.Column="0" Margin="3" VerticalAlignment="Center"/>
+            <TextBox Name="TextBox_StructurePath" Grid.Column="1" VerticalContentAlignment="Center" Margin="3"/>
+            <Button Name="Button_StructurePath" Grid.Column="2" Margin="3" Padding="3" Content="路径"/>
+        </Grid>
+        <Grid Name="Grid_FilesPath" Grid.Row="1" Margin="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="文件目录:" Grid.Column="0" Margin="3" VerticalAlignment="Center"/>
+            <TextBox Name="TextBox_FilesPath" Grid.Column="1" VerticalContentAlignment="Center" Margin="3"/>
+            <Button Name="Button_FilesPath" Grid.Column="2" Margin="3" Padding="3" Content="路径"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TreeView Name="TreeView_Structure" Grid.Column="0" Margin="3"/>
+            <ListView Name="ListView_Files" Grid.Column="1" Margin="3"/>
+        </Grid>
+        <Grid Name="Grid_OutputPath" Grid.Row="3" Margin="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="生成目录:" Grid.Column="0" Margin="3" VerticalAlignment="Center"/>
+            <TextBox Name="TextBox_OutputPath" Grid.Column="1" VerticalContentAlignment="Center" Margin="3"/>
+            <Button Name="Button_OutputPath" Grid.Column="2" Margin="3" Padding="3" Content="路径"/>
+            <Button Name="Button_Generation" Grid.Column="3" Margin="3" Padding="3" Content="生成"/>
+        </Grid>
     </Grid>
 </Window>
