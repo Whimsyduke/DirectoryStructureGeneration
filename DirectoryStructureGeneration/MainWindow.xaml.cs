@@ -21,6 +21,7 @@ namespace DirectoryStructureGeneration
     /// </summary>
     public partial class MainWindow : Window
     {
+        private TreeViewItem_Structure root;
         public MainWindow()
         {
             InitializeComponent();
@@ -58,7 +59,7 @@ namespace DirectoryStructureGeneration
 
         private void Button_Generation_Click(object sender, RoutedEventArgs e)
         {
-            //try
+            try
             {
                 if (!Directory.Exists(TextBox_StructurePath.Text))
                 {
@@ -78,13 +79,79 @@ namespace DirectoryStructureGeneration
                 DirectoryInfo structDir = new DirectoryInfo(TextBox_StructurePath.Text);
                 DirectoryInfo filesDir = new DirectoryInfo(TextBox_FilesPath.Text);
                 DirectoryInfo outputDir = new DirectoryInfo(TextBox_OutputPath.Text);
-                TreeView_Structure.Items.Add(new TreeViewItem_Structure(false, structDir.Name, filesDir.FullName, structDir.Parent.FullName, "", null));
+                TreeView_Structure.Items.Clear();
+                root = new TreeViewItem_Structure(false, structDir.Name, outputDir.FullName, structDir.Parent.FullName, "", null);
+                TreeView_Structure.Items.Add(root);
+                List<ListViewItem_Base> items = filesDir.GetFiles().Select(r => new ListViewItem_Base(r)).ToList();
+                ListView_Files.Items.Clear();
+                foreach (ListViewItem_Base select in items)
+                {
+                    ListView_Files.Items.Add(select);
+                }
+                root.CopyDirectory(items);
+
+                SetNotMatchStructure();
+                SetOnlyUnusedFiles();
+
+                MessageBox.Show("生成完成！");
             }
-            //catch (Exception error)
-            //{
-            //    MessageBox.Show(error.Message);
-            //    return;
-            //}
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message);
+                return;
+            }
         }
+
+        private void SetNotMatchStructure()
+        {
+            if (TreeView_Structure.Items.Count == 0) return;
+            root.CheckMatch(CheckBox_NotMatchStructure.IsChecked == false);
+        }
+
+        private void SetOnlyUnusedFiles()
+        {
+            if (ListView_Files.Items.Count == 0) return;
+            if (CheckBox_OnlyUnusedFiles.IsChecked == true)
+            {
+                foreach (ListViewItem_Base select in ListView_Files.Items)
+                {
+                    if (select.MCount == 0)
+                    {
+                        select.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        select.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+            else
+            {
+                foreach (ListViewItem_Base select in ListView_Files.Items)
+                {
+                    select.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void CheckBox_NotMatchStructure_Checked(object sender, RoutedEventArgs e)
+        {
+            SetNotMatchStructure();
+        }
+        private void CheckBox_NotMatchStructure_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SetNotMatchStructure();
+        }
+
+        private void CheckBox_OnlyUnusedFiles_Checked(object sender, RoutedEventArgs e)
+        {
+            SetOnlyUnusedFiles();
+        }
+
+        private void CheckBox_OnlyUnusedFiles_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SetOnlyUnusedFiles();
+        }
+
     }
 }

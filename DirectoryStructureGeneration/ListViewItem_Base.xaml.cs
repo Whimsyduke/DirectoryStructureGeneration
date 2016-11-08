@@ -46,6 +46,7 @@ namespace DirectoryStructureGeneration
 
             set
             {
+                Label_Count.Content = value.ToString();
                 mCount = value;
             }
         }
@@ -60,6 +61,8 @@ namespace DirectoryStructureGeneration
             InitializeComponent();
             mFile = file;
             mCount = 0;
+            Label_Header.Content = file.Name;
+            Label_Count.Content = mCount.ToString();
         }
     }
 }

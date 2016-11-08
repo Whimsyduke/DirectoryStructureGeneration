@@ -7,7 +7,7 @@
              mc:Ignorable="d" Header="{DynamicResource ResourceKey=Grid_Header}">
     <TreeViewItem.Resources>
         <ResourceDictionary>
-            <CheckBox x:Key="CheckBox_Header" x:Name="CheckBox_Header" Grid.Column="0" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <CheckBox x:Key="CheckBox_Header" x:Name="CheckBox_Header" IsChecked="False" Grid.Column="0" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
             <Label  x:Key="Label_Header" x:Name="Label_Header" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
             <Grid x:Key="Grid_Header">
                 <Grid.ColumnDefinitions>

@@ -53,8 +53,8 @@
             <ListView Name="ListView_Files" Grid.Column="1" Margin="3"/>
         </Grid>
         <StackPanel Grid.Row="4" HorizontalAlignment="Right" Orientation="Horizontal" Margin="3">
-            <CheckBox Name="CheckBox_NotMatchStructure" Content="仅显示未匹配文件" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="5,3,5,3" />
-            <CheckBox Name="CheckBox_OnlyUnusedFiles" Content="仅显示未使用文件" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="5,3,5,3" />
+            <CheckBox Name="CheckBox_NotMatchStructure" IsChecked="True" Content="仅显示未匹配文件" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="5,3,5,3" Checked="CheckBox_NotMatchStructure_Checked" Unchecked="CheckBox_NotMatchStructure_Unchecked"/>
+            <CheckBox Name="CheckBox_OnlyUnusedFiles" IsChecked="True" Content="仅显示未使用文件" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="5,3,5,3" Checked="CheckBox_OnlyUnusedFiles_Checked" Unchecked="CheckBox_OnlyUnusedFiles_Unchecked" />
             <Button Name="Button_Generation" Grid.Column="3" Margin="5,3,3,3" Width="80" Padding="3" Content="生成" Click="Button_Generation_Click"/>
         </StackPanel>
     </Grid>

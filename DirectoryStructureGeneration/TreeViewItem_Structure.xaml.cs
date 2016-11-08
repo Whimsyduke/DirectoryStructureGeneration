@@ -24,13 +24,11 @@ namespace DirectoryStructureGeneration
         private string mHeader;
         private bool mIsChecked;
         private bool mIsFile;
-        private bool mIsVisible;
         private string mStructFile;
         private string mMatchFile;
         private string mPartPath;
         private string mBaseFilePath;
         private string mBaseStructPath;
-        private int mChildVisibleCount;
         private TreeViewItem_Structure mParent;
         private Grid mGrid_Header;
         private CheckBox mCheckBox_Header;
@@ -59,6 +57,10 @@ namespace DirectoryStructureGeneration
 
             set
             {
+                if (mIsChecked != value && mParent != null)
+                {
+                    mParent.ChildCheck();
+                }
                 mCheckBox_Header.IsChecked = value;
                 mIsChecked = value;
             }
@@ -76,30 +78,7 @@ namespace DirectoryStructureGeneration
                 mIsFile = value;
             }
         }
-
-        public bool MIsVisible
-        {
-            get
-            {
-                return mIsVisible;
-            }
-
-            set
-            {
-                if (value)
-                {
-                    if (mParent != null) mParent.MChildVisibleCount++;
-                    Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    if (mParent != null) mParent.MChildVisibleCount--;
-                    Visibility = Visibility.Collapsed;
-                }
-                mIsVisible = value;
-            }
-        }
-
+        
         public string MStructFile
         {
             get
@@ -177,20 +156,7 @@ namespace DirectoryStructureGeneration
                 mParent = value;
             }
         }
-
-        public int MChildVisibleCount
-        {
-            get
-            {
-                return mChildVisibleCount;
-            }
-
-            set
-            {
-                mChildVisibleCount = value;
-            }
-        }
-
+        
         public TreeViewItem_Structure()
         {
             InitializeComponent();
@@ -219,7 +185,6 @@ namespace DirectoryStructureGeneration
             mStructFile = mBaseStructPath + partPath + "\\" + header;
             mMatchFile = mBaseFilePath + partPath + "\\" + header;
             mParent = parent;
-            mChildVisibleCount = 0;
             mIsChecked = false;
             DirectoryInfo dir = new DirectoryInfo(mStructFile);
             if (!isFile)
@@ -235,6 +200,82 @@ namespace DirectoryStructureGeneration
                     Items.Add(new TreeViewItem_Structure(true, select.Name, baseFilePath, baseStructPath, mPartPath, this));
                 }
             }
+        }
+
+        public void CopyDirectory(List<ListViewItem_Base> items)
+        {
+            if (!Directory.Exists(mMatchFile))
+            {
+                Directory.CreateDirectory(mMatchFile);
+            }
+            foreach (TreeViewItem_Structure select in Items)
+            {
+                if (select.MIsFile)
+                {
+                    select.CopyFile(items);
+                }
+                else
+                {
+                    select.CopyDirectory(items);
+                }
+            }
+            ChildCheck();
+        }
+
+        public void CopyFile(List<ListViewItem_Base> items)
+        {
+            List<ListViewItem_Base> matchs = items.Where(r => r.MFile.Name == mHeader).ToList();
+            if (matchs.Count == 0)
+            {
+                MIsChecked = false;
+                return;
+            }
+            FileInfo file = matchs.First().MFile;
+            matchs.First().MCount++;
+            FileInfo match = new FileInfo(mMatchFile);
+            if (!match.Directory.Exists)
+            {
+                match.Directory.Create();
+            }
+            file.CopyTo(match.FullName, true);
+            MIsChecked = true;
+        }
+
+        public void ChildCheck()
+        {
+            if (Items.Count == 0)
+            {
+                MIsChecked = true;
+                return;
+            }
+            bool isAllCheck = false;
+            foreach (TreeViewItem_Structure select in Items)
+            {
+                isAllCheck = select.MIsChecked || isAllCheck;
+            }
+            MIsChecked = isAllCheck;
+        }
+
+        public bool CheckMatch(bool isAll)
+        {
+            bool visible = false;
+            if (!mIsFile)
+            {
+                foreach(TreeViewItem_Structure select in Items)
+                {
+                    visible  = select.CheckMatch(isAll) || visible;
+                }
+            }
+            visible = visible || isAll || !mIsChecked;
+            if (visible)
+            {
+                Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Visibility = Visibility.Collapsed;
+            }
+            return visible;
         }
     }
 }
