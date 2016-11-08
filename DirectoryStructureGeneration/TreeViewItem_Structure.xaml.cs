@@ -167,6 +167,7 @@ namespace DirectoryStructureGeneration
             mGrid_Header.Children.Add(mLabel_Header);
             MIsChecked = false;
             MHeader = "";
+            AddMenu();
         }
 
         public TreeViewItem_Structure(bool isFile, string header, string baseFilePath, string baseStructPath, string partPath, TreeViewItem_Structure parent)
@@ -200,6 +201,40 @@ namespace DirectoryStructureGeneration
                     Items.Add(new TreeViewItem_Structure(true, select.Name, baseFilePath, baseStructPath, mPartPath, this));
                 }
             }
+            AddMenu();
+        }
+        
+        private void AddMenu()
+        {
+            MenuItem copyName = new MenuItem();
+            copyName.Header = "复制文件名";
+            copyName.Click += MenuItem_CoypName_Click;
+            MenuItem copyStruct = new MenuItem();
+            copyStruct.Header = "复制结构路径";
+            copyStruct.Click += MenuItem_CopyStruct_Click;
+            MenuItem copyFile = new MenuItem();
+            copyFile.Header = "复制生成路径";
+            copyFile.Click += MenuItem_CopyFile_Click;
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.Items.Add(copyName);
+            contextMenu.Items.Add(copyStruct);
+            contextMenu.Items.Add(copyFile);
+            ContextMenu = contextMenu;
+        }
+        
+        private void MenuItem_CopyFile_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(mMatchFile);
+        }
+
+        private void MenuItem_CopyStruct_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(mStructFile);
+        }
+
+        private void MenuItem_CoypName_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(mHeader);
         }
 
         public void CopyDirectory(List<ListViewItem_Base> items)
