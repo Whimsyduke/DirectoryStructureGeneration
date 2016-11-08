@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="结构目录:" Grid.Column="0" Margin="3" VerticalAlignment="Center"/>
             <TextBox Name="TextBox_StructurePath" Grid.Column="1" VerticalContentAlignment="Center" Margin="3"/>
-            <Button Name="Button_StructurePath" Grid.Column="2" Margin="3" Padding="3" Content="路径"/>
+            <Button Name="Button_StructurePath" Grid.Column="2" Margin="3" Padding="3" Content="路径" Click="Button_StructurePath_Click"/>
         </Grid>
         <Grid Name="Grid_FilesPath" Grid.Row="1" Margin="3">
             <Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="文件目录:" Grid.Column="0" Margin="3" VerticalAlignment="Center"/>
             <TextBox Name="TextBox_FilesPath" Grid.Column="1" VerticalContentAlignment="Center" Margin="3"/>
-            <Button Name="Button_FilesPath" Grid.Column="2" Margin="3" Padding="3" Content="路径"/>
+            <Button Name="Button_FilesPath" Grid.Column="2" Margin="3" Padding="3" Content="路径" Click="Button_FilesPath_Click"/>
         </Grid>
         <Grid Name="Grid_OutputPath" Grid.Row="2" Margin="3">
             <Grid.ColumnDefinitions>
@@ -42,7 +42,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="生成目录:" Grid.Column="0" Margin="3" VerticalAlignment="Center"/>
             <TextBox Name="TextBox_OutputPath" Grid.Column="1" VerticalContentAlignment="Center" Margin="3"/>
-            <Button Name="Button_OutputPath" Grid.Column="2" Margin="3" Padding="3" Content="路径"/>
+            <Button Name="Button_OutputPath" Grid.Column="2" Margin="3" Padding="3" Content="路径" Click="Button_OutputPath_Click"/>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -55,7 +55,7 @@
         <StackPanel Grid.Row="4" HorizontalAlignment="Right" Orientation="Horizontal" Margin="3">
             <CheckBox Name="CheckBox_NotMatchStructure" Content="仅显示未匹配文件" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="5,3,5,3" />
             <CheckBox Name="CheckBox_OnlyUnusedFiles" Content="仅显示未使用文件" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="5,3,5,3" />
-            <Button Name="Button_Generation" Grid.Column="3" Margin="5,3,3,3" Width="80" Padding="3" Content="生成"/>
+            <Button Name="Button_Generation" Grid.Column="3" Margin="5,3,3,3" Width="80" Padding="3" Content="生成" Click="Button_Generation_Click"/>
         </StackPanel>
     </Grid>
 </Window>

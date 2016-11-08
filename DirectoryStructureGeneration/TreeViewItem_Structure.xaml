@@ -1,0 +1,20 @@
+﻿<TreeViewItem x:Class="DirectoryStructureGeneration.TreeViewItem_Structure"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DirectoryStructureGeneration"
+             mc:Ignorable="d" Header="{DynamicResource ResourceKey=Grid_Header}">
+    <TreeViewItem.Resources>
+        <ResourceDictionary>
+            <CheckBox x:Key="CheckBox_Header" x:Name="CheckBox_Header" Grid.Column="0" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <Label  x:Key="Label_Header" x:Name="Label_Header" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <Grid x:Key="Grid_Header">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ResourceDictionary>
+    </TreeViewItem.Resources>
+</TreeViewItem>
